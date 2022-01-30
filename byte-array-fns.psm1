@@ -225,7 +225,7 @@ Export-ModuleMember -Function bytes-to-number
 function bytes-to-bit-positions {
     # .DESCRIPTION
     # Takes an array of bytes and returns the array list with integer numbers
-    # indicating positions of bits which are set. The first bit has position is 1
+    # indicating positions of bits which are set. The first bit has position of 1
     # and it is the most-right one.
     param([byte[]] $bytes)
     $positions = [System.Collections.ArrayList]::new()
