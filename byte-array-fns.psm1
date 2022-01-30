@@ -206,7 +206,13 @@ function bytes-to-number {
     # data type on a basis of its length. When there is no data type which exactly
     # matches number of bytes, it will pad the input with an empty byte added
     # at the beginning before passing to a conversion function.
-    param([byte[]] $b)
+    # If the second argument is a truthy value it will enable endianness conversion
+    # from Little-Endian to Big-Endian.
+    param([Parameter(Mandatory=$true)][byte[]] $b,
+          [Parameter(Mandatory=$false)]$is_little_endian)
+    if ($is_little_endian) {
+        [byte[]] $b = (bytes-reverse $b)
+    }
     $r = $Null
     switch([int]$b.Count) {
         0 { [byte]   $r = 0; break }
