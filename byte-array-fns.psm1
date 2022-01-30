@@ -35,6 +35,28 @@ function bytes-add-right {
 }
 Export-ModuleMember -Function bytes-add-right
 
+function bytes-fill-left {
+    # .DESCRIPTION
+    # Takes a bytes array and pads its left side with bytes of value 0
+    # to match the maximum size of $min_bytes. Returns new bytes array.
+    param([byte[]] $b, $min_bytes)
+    if ($min_bytes -le $b.Count) { return ,$b }
+    $min_bytes = $min_bytes - $b.Count
+    return (bytes-add-left $b ([byte[]]::new($min_bytes)))
+}
+Export-ModuleMember -Function bytes-fill-left
+
+function bytes-fill-right {
+    # .DESCRIPTION
+    # Takes a bytes array and pads its right side with bytes of value 0
+    # to match the maximum size of $min_bytes. Returns new bytes array.
+    param([byte[]] $b, $min_bytes)
+    if ($min_bytes -le $b.Count) { return ,$b }
+    $min_bytes = $min_bytes - $b.Count
+    return (bytes-add-right $b ([byte[]]::new($min_bytes)))
+}
+Export-ModuleMember -Function bytes-fill-right
+
 function bit-pos-to-bytes-little-endian {
     # .DESCRIPTION
     # Takes a bit position to set and creates a byte array with
