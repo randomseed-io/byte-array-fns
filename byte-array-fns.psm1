@@ -2,12 +2,6 @@
 # Copyright (c) 2022 by Paweł Wilk <pw@gnu.org>
 # License: LGPL v3.0 -- https://www.gnu.org/licenses/lgpl-3.0.en.html
 
-function bytes-to-nums($bytes)
-{
-    return $True
-}
-Export-ModuleMember -Function bytes-to-nums
-
 function num-to-bytes {
     # .DESCRIPTION
     # Takes a number and creates a byte array.
@@ -227,3 +221,20 @@ function bytes-to-number {
     return $r
 }
 Export-ModuleMember -Function bytes-to-number
+
+function bytes-to-bit-positions {
+    # .DESCRIPTION
+    # Takes an array of bytes and returns the array list with integer numbers
+    # indicating positions of bits which are set. The first bit has position is 1
+    # and it is the most-right one.
+    param([byte[]] $bytes)
+    $positions = [System.Collections.ArrayList]::new()
+    $binbits   = (bytes-to-bin $bytes).ToCharArray()
+    $curpos    = $binbits.Count
+    foreach($bit in $binbits) {
+        if ($bit -eq "1") { $positions += $curpos }
+        $curpos -= 1
+    }
+    return ,$positions
+}
+Export-ModuleMember -Function bytes-to-bit-positions

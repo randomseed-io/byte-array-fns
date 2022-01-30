@@ -41,37 +41,42 @@ Write-Host ""
 Write-Host "[BE]   A:" (bytes-to-bin $a) "[" (bytes-to-hex $a) "," (bytes-to-dec $a) "]"
 Write-Host "[BE]   A:" (bytes-to-bin $a) "[" (bytes-to-hex $a) "," (bytes-to-dec $a) "]"
 Write-Host "[BE] A|A:" (bytes-to-bin $r) "[" (bytes-to-hex $r) "," (bytes-to-dec $r) "]"
+Write-Host "[BE] POS:" $((bytes-to-bit-positions $r) -join ", ")
 
 $r = (bits-pos-to-bytes-big-endian @($na, $nb))
 Write-Host ""
 Write-Host "[BE]   A:" (bytes-to-bin $a) "[" (bytes-to-hex $a) "," (bytes-to-dec $a) "]"
 Write-Host "[BE]   B:" (bytes-to-bin $b) "[" (bytes-to-hex $b) "," (bytes-to-dec $b) "]"
 Write-Host "[BE] A|B:" (bytes-to-bin $r) "[" (bytes-to-hex $r) "," (bytes-to-dec $r) "]"
+Write-Host "[BE] POS:" $((bytes-to-bit-positions $r) -join ", ")
 
 $r = (bits-pos-to-bytes-big-endian @($nb, $nb))
 Write-Host ""
 Write-Host "[BE]   B:" (bytes-to-bin $b) "[" (bytes-to-hex $b) "," (bytes-to-dec $b) "]"
 Write-Host "[BE]   B:" (bytes-to-bin $b) "[" (bytes-to-hex $b) "," (bytes-to-dec $b) "]"
 Write-Host "[BE] B|B:" (bytes-to-bin $r) "[" (bytes-to-hex $r) "," (bytes-to-dec $r) "]"
-
+Write-Host "[BE] POS:" $((bytes-to-bit-positions $r) -join ", ")
 
 $r = (bits-pos-to-bytes-little-endian @($nx, $nx))
 Write-Host ""
 Write-Host "[LE]   C:" (bytes-to-bin $x) "[" (bytes-to-hex $x) "," (bytes-to-dec $x) "]"
 Write-Host "[LE]   C:" (bytes-to-bin $x) "[" (bytes-to-hex $x) "," (bytes-to-dec $x) "]"
 Write-Host "[LE] C|C:" (bytes-to-bin $r) "[" (bytes-to-hex $r) "," (bytes-to-dec $r) "]"
+Write-Host "[LE] POS:" $((bytes-to-bit-positions $r) -join ", ")
 
 $r = (bits-pos-to-bytes-little-endian @($nx, $nd))
 Write-Host ""
 Write-Host "[LE]   C:" (bytes-to-bin $x) "[" (bytes-to-hex $x) "," (bytes-to-dec $x) "]"
 Write-Host "[LE]   D:" (bytes-to-bin $d) "[" (bytes-to-hex $d) "," (bytes-to-dec $d) "]"
 Write-Host "[LE] C|D:" (bytes-to-bin $r) "[" (bytes-to-hex $r) "," (bytes-to-dec $r) "]"
+Write-Host "[LE] POS:" $((bytes-to-bit-positions $r) -join ", ")
 
 $r = (bits-pos-to-bytes-little-endian @($nd, $nd))
 Write-Host ""
 Write-Host "[LE]   D:" (bytes-to-bin $d)
 Write-Host "[LE]   D:" (bytes-to-bin $d)
 Write-Host "[LE] D|D:" (bytes-to-bin $r)
+Write-Host "[LE] POS:" $((bytes-to-bit-positions $r) -join ", ")
 
 Write-Host ""
 Write-Host "-------------------------------"
