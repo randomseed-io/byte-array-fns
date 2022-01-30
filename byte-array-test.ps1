@@ -1,6 +1,6 @@
-Import-Module ./byte-array-fns.psm1 -DisableNameChecking
+Import-Module ./byte-array-fns.psm1 -DisableNameChecking -Force
 
-Write-Host (bytes-to-bin (num-to-bytes-big-endian 9))
+Write-Host (bytes-to-bin (bit-pos-to-bytes-little-endian 9))
 
 $x =(bytes-to-bin ([byte[]]@(1,0)))
 Write-Host $x

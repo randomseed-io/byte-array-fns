@@ -7,9 +7,10 @@ function bytes-to-nums($bytes)
     return $True
 }
 
-function num-to-bytes-big-endian {
+function bit-pos-to-bytes-little-endian {
     # .DESCRIPTION
-    # Takes a number and converts it to a byte array with Big-Endian bytes order.
+    # Takes a bit position to set and creates a byte array with
+    # Little-Endian bytes order.
     param($num)
     if ($num -eq 0) {
         return [byte[]]::new(1)
@@ -23,7 +24,7 @@ function num-to-bytes-big-endian {
     $bytes[0]       = [System.Convert]::ToByte($bbyte, 2)
     return ,$bytes
 }
-Export-ModuleMember -Function num-to-bytes-big-endian
+Export-ModuleMember -Function bit-pos-to-bytes-little-endian
 
 function bytes-copy {
     # .DESCRIPTION
@@ -45,14 +46,15 @@ function bytes-reverse {
 }
 Export-ModuleMember -Function bytes-reverse
 
-function num-to-bytes-little-endian {
+function bit-pos-to-bytes-big-endian {
     # .DESCRIPTION
-    # Takes a number and converts it to a byte array with Little-Endian bytes order.
+    # Takes a bit position to set and creates a byte array with Little-Endian
+    # bytes order.
     param($num)
-    [byte[]] $a = (num-to-bytes-big-endian $num)
+    [byte[]] $a = (bit-pos-to-bytes-little-endian $num)
     return (bytes-reverse $a)
 }
-Export-ModuleMember -Function num-to-bytes-little-endian
+Export-ModuleMember -Function bit-pos-to-bytes-big-endian
 
 function bytes-to-int16 {
     # .DESCRIPTION
