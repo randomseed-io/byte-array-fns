@@ -6,6 +6,34 @@ function bytes-to-nums($bytes)
 {
     return $True
 }
+Export-ModuleMember -Function bytes-to-nums
+
+function num-to-bytes {
+    # .DESCRIPTION
+    # Takes a number and creates a byte array.
+    param($num)
+    return [System.BitConverter]::GetBytes($num)
+}
+Export-ModuleMember -Function num-to-bytes
+
+function bytes-add-left {
+    # .DESCRIPTION
+    # Takes two byte arrays and creates a new one by concatenating them
+    # with the second one placed first.
+    param([byte[]] $b, [byte[]] $v)
+    [byte[]] $x = $v + $b
+    return ,$x
+}
+Export-ModuleMember -Function bytes-add-left
+
+function bytes-add-right {
+    # .DESCRIPTION
+    # Takes two byte arrays and creates a new one by concatenating them.
+    param([byte[]] $b, [byte[]] $v)
+    [byte[]] $x = $b + $v
+    return ,$x
+}
+Export-ModuleMember -Function bytes-add-right
 
 function bit-pos-to-bytes-little-endian {
     # .DESCRIPTION
