@@ -76,6 +76,48 @@ function bit-pos-to-bytes-little-endian {
 }
 Export-ModuleMember -Function bit-pos-to-bytes-little-endian
 
+function bits-pos-to-bytes-little-endian {
+    # .DESCRIPTION
+    # Takes an iterable collection of bit positions to be set and creates
+    # a byte array with Little-Endian bytes order with all bits set.
+    param($nums)
+    $nmax       = ($nums | Measure-Object -Maximum).Maximum
+    $bytes_size = 1 + [int][Math]::Floor($nmax / 8.1)
+    $bytes_out  = [byte[]]::new($bytes_size)
+    foreach($num in $nums) {
+        $bytes    = (bit-pos-to-bytes-little-endian $num)
+        $bytes    = (bytes-fill-left $bytes $bytes_size)
+        $cur_byte = 0
+        foreach($byte in $bytes) {
+            $bytes_out[$cur_byte] = ($byte -bor $bytes_out[$cur_byte])
+            $cur_byte += 1
+        }
+    }
+    return ,([byte[]] $bytes_out)
+}
+Export-ModuleMember -Function bits-pos-to-bytes-little-endian
+
+function bits-pos-to-bytes-big-endian {
+    # .DESCRIPTION
+    # Takes an iterable collection of bit positions to be set and creates
+    # a byte array with Big-Endian bytes order with all bits set.
+    param($nums)
+    $nmax       = ($nums | Measure-Object -Maximum).Maximum
+    $bytes_size = 1 + [int][Math]::Floor($nmax / 8.1)
+    $bytes_out  = [byte[]]::new($bytes_size)
+    foreach($num in $nums) {
+        $bytes    = (bit-pos-to-bytes-big-endian $num)
+        $bytes    = (bytes-fill-right $bytes $bytes_size)
+        $cur_byte = 0
+        foreach($byte in $bytes) {
+            $bytes_out[$cur_byte] = ($byte -bor $bytes_out[$cur_byte])
+            $cur_byte += 1
+        }
+    }
+    return ,([byte[]] $bytes_out)
+}
+Export-ModuleMember -Function bits-pos-to-bytes-big-endian
+
 function bytes-copy {
     # .DESCRIPTION
     # Takes a byte array and copies it into a new structure.
@@ -98,7 +140,7 @@ Export-ModuleMember -Function bytes-reverse
 
 function bit-pos-to-bytes-big-endian {
     # .DESCRIPTION
-    # Takes a bit position to set and creates a byte array with Little-Endian
+    # Takes a bit position to set and creates a byte array with Big-Endian
     # bytes order.
     param($num)
     [byte[]] $a = (bit-pos-to-bytes-little-endian $num)
@@ -157,25 +199,6 @@ function bytes-to-bin {
     return $r
 }
 Export-ModuleMember -Function bytes-to-bin
-
-function bytes-add-left {
-    # .DESCRIPTION
-    # Takes two byte arrays and creates a new one by concatenating them
-    # with the second one placed first.
-    param([byte[]] $b, [byte[]] $v)
-    [byte[]] $x = $v + $b
-    return $x
-}
-Export-ModuleMember -Function bytes-add-left
-
-function bytes-add-right {
-    # .DESCRIPTION
-    # Takes two byte arrays and creates a new one by concatenating them.
-    param([byte[]] $b, [byte[]] $v)
-    [byte[]] $x = $b + $v
-    return $x
-}
-Export-ModuleMember -Function bytes-add-right
 
 function bytes-to-number {
     # .DESCRIPTION
