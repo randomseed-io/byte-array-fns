@@ -146,7 +146,7 @@ function bytes-to-int16 {
     # .DESCRIPTION
     # Takes a byte array and converts it to a 16-bit unsigned integer.
     param([byte[]] $b)
-    return [System.BitConverter]::ToUInt16($b)
+    return [System.BitConverter]::ToUInt16($b, 0)
 }
 Export-ModuleMember -Function bytes-to-int16
 
@@ -154,7 +154,7 @@ function bytes-to-int32 {
     # .DESCRIPTION
     # Takes a byte array and converts it to a 32-bit unsigned integer.
     param([byte[]] $b)
-    return [System.BitConverter]::ToUInt32($b)
+    return [System.BitConverter]::ToUInt32($b, 0)
 }
 Export-ModuleMember -Function bytes-to-int32
 
@@ -162,7 +162,7 @@ function bytes-to-int64 {
     # .DESCRIPTION
     # Takes a byte array and converts it to a 64-bit unsigned integer.
     param([byte[]] $b)
-    return [System.BitConverter]::ToUInt64($b)
+    return [System.BitConverter]::ToUInt64($b, 0)
 }
 Export-ModuleMember -Function bytes-to-int64
 
