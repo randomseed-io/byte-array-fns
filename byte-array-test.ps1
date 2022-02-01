@@ -93,3 +93,15 @@ Write-Host $x
 
 $x =(bytes-to-number ([byte[]]@(1,1)))
 Write-Host $x
+
+Write-Host ""
+Write-Host "-------------------------------"
+Write-Host ""
+
+$bid   = (bit-pos-to-bytes-big-endian 9)
+$intid = (bytes-to-number $bid)
+Write-Host $intid
+
+$bid   = (bit-pos-to-bytes-big-endian 1)
+$intid = (bytes-to-number $bid)
+Write-Host $intid
